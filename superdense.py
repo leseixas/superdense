@@ -22,10 +22,6 @@ backend = Aer.get_backend('qasm_simulator')
 
 print("Backend:",backend)
 
-#
-# 5 protocols: preparation, sharing, encoding, sending, decoding
-#
-
 # Preparation (Bell state)
 qc = QuantumCircuit(2,2)
 qc.h(0)
@@ -37,9 +33,8 @@ qc.cx(0,1)
 # 01 = X
 # 11 = Z*X
 
-#qc.id(0)
-#qc.z(0) # 10 or 11 
-qc.x(0) # 01 or 11
+qc.z(0) # 01 or 11 
+#qc.x(0) # 10 or 11
 
 # Decoding
 
@@ -50,7 +45,7 @@ qc.measure([0,1],[0,1])
 
 job = execute(qc, backend, shots=1024)
 result = job.result()
-counts = job.get_counts(qc)
+counts = result.get_counts(qc)
 print(counts)
 
 
